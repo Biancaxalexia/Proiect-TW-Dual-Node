@@ -39,7 +39,7 @@ exports.getMyReviews = async (req, res) => {
 exports.submitReview = async (req, res) => {
   try {
     const { reviewId } = req.params;
-    const { comment, score } = req.body;
+    const { comment, score, decision } = req.body;
     
     const review = await Review.findByPk(reviewId);
     if (!review) {
@@ -54,16 +54,17 @@ exports.submitReview = async (req, res) => {
     if (score < 1 || score > 10) {
       return res.status(400).json({ error: 'Nota trebuie să fie între 1 și 10' });
     }
+
+    //Salvare recenzie 
     review.comment = comment;
     review.score = score;
     review.status = 'completed';
     await review.save();
 
-    const submission = await Submission.findByPk(review.SubmissionId);
-    if (submission && submission.status === 'pending') {
-      submission.status = 'under_review';
-      await submission.save();
-    }
+    // Actualizare status lucrare 
+    review.submission.status = decision === "accept" ? "accepted" : "needs_revision";
+
+    await review.Submission.save();
     
     res.json({
       message: 'Recenzie trimisă cu succes',
