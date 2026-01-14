@@ -5,16 +5,16 @@ const { Conference, Submission, Review, User } = require('../models');
 // Doar organizatorii pot crea conferințe
 exports.createConference = async (req, res) => {
   try {
-    const { title, description, date, submissionDeadline, location, meetingLink /* ultimele trei de aici sunt nou adăugate*/} = req.body;
+    const { title, description, date, submissionDeadline, location, meetingLink } = req.body;
     const conference = await Conference.create({
       title,
       description,
       date, 
-      submissionDeadline, //linie nouă
-      location, //linie nouă
-      meetingLink: meetingLink || null, //linie nouă
+      submissionDeadline, 
+      location, 
+      meetingLink: meetingLink || null, 
       organizerId: req.user.id,
-      status: new Date(submissionDeadline) > new Date() ? "open" : "closed" //linie nouă
+      status: new Date(submissionDeadline) > new Date() ? "open" : "closed" 
     });
     
     res.status(201).json({
@@ -151,7 +151,6 @@ exports.updateConference = async (req, res) => {
       meetingLink
     } = req.body;
 
-    //bucată nouă de cod
     if (!title || !description || !location || !date || !submissionDeadline) {
       return res.status(400).json({ message: 'Toate câmpurile obligatorii trebuie completate' });
     }
@@ -166,7 +165,7 @@ await conference.update({
   date: req.body.date,
   submissionDeadline: req.body.submissionDeadline,
   meetingLink: req.body.meetingLink || null,
-  status: new Date(req.body.submissionDeadline) > new Date() ? "open" : "closed" //linie nouă
+  status: new Date(req.body.submissionDeadline) > new Date() ? "open" : "closed" 
 });
     res.json({
       message: 'Conferința a fost actualizată cu succes',

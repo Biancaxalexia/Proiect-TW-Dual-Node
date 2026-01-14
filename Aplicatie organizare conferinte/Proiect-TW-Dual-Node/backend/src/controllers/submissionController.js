@@ -22,6 +22,8 @@ exports.submitArticle = async (req, res) => {
       file: req.file.filename, 
       authorId: req.user.id,  
       ConferenceId: conferenceId,
+      comment: '', 
+      score: 0, 
       status: 'pending',      
       version: 1               
     });
