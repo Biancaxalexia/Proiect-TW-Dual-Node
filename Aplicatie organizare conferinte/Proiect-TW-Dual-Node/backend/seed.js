@@ -67,6 +67,9 @@ async function seed() {
       title: 'Conferința Națională de Literatură',
       description: 'Eveniment dedicat literaturii contemporane românești',
       date: new Date('2025-06-15'),
+      submissionDeadline: new Date("2026-05-15"), 
+      location: "București / Online", 
+      status: "open", 
       organizerId: organizer.id
     });
 
@@ -74,6 +77,9 @@ async function seed() {
       title: 'Simpozion de Critică Literară',
       description: 'Analize moderne asupra literaturii române',
       date: new Date('2025-07-20'),
+      submissionDeadline: new Date("2026-06-10"), 
+      location: "Cluj-Napoca", 
+      status: "open", 
       organizerId: organizer.id
     });
 
