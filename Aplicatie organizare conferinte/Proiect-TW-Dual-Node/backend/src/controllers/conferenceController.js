@@ -5,12 +5,16 @@ const { Conference, Submission, Review, User } = require('../models');
 // Doar organizatorii pot crea conferințe
 exports.createConference = async (req, res) => {
   try {
-    const { title, description, date } = req.body;
+    const { title, description, date, submissionDeadline, location, meetingLink /* ultimele trei de aici sunt nou adăugate*/} = req.body;
     const conference = await Conference.create({
       title,
       description,
-      date,
-      organizerId: req.user.id
+      date, 
+      submissionDeadline, //linie nouă
+      location, //linie nouă
+      meetingLink: meetingLink || null, //linie nouă
+      organizerId: req.user.id,
+      status: new Date(submissionDeadline) > new Date() ? "open" : "closed" //linie nouă
     });
     
     res.status(201).json({
@@ -121,5 +125,55 @@ exports.getConferenceSubmissions = async (req, res) => {
     res.json(submissions);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+  // UPDATE conferință
+// Doar organizatorul conferinței o poate edita
+exports.updateConference = async (req, res) => {
+  try {
+    const conference = await Conference.findByPk(req.params.id);
+
+    if (!conference) {
+      return res.status(404).json({ message: 'Conferința nu a fost găsită' });
+    }
+
+    if (conference.organizerId !== req.user.id) {
+      return res.status(403).json({ message: 'Nu ai dreptul să editezi această conferință' });
+    }
+
+    const {
+      title,
+      description,
+      location,
+      date,
+      submissionDeadline,
+      meetingLink
+    } = req.body;
+
+    //bucată nouă de cod
+    if (!title || !description || !location || !date || !submissionDeadline) {
+      return res.status(400).json({ message: 'Toate câmpurile obligatorii trebuie completate' });
+    }
+
+    const newStatus =
+      new Date(submissionDeadline) > new Date() ? "open" : "closed";
+
+await conference.update({
+  title: req.body.title,
+  description: req.body.description,
+  location: req.body.location,
+  date: req.body.date,
+  submissionDeadline: req.body.submissionDeadline,
+  meetingLink: req.body.meetingLink || null,
+  status: new Date(req.body.submissionDeadline) > new Date() ? "open" : "closed" //linie nouă
+});
+    res.json({
+      message: 'Conferința a fost actualizată cu succes',
+      conference
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
   }
 };

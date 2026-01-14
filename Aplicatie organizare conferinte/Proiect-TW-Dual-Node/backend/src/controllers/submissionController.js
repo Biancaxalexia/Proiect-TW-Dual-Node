@@ -55,9 +55,7 @@ async function assignReviewers(submissionId) {
     for (const reviewer of selectedReviewers) {
       await Review.create({
         SubmissionId: submissionId,
-        reviewerId: reviewer.id,
-        comment: '', 
-        score: 0,   
+        reviewerId: reviewer.id, // linii șterse
         status: 'pending'
       });
     }

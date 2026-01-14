@@ -17,6 +17,26 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,       
       allowNull: false            
     },
+    //bucată de cod nou adăugată
+    submissionDeadline: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    meetingLink: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        isUrl: true
+      }
+    }, 
+    status: {
+      type: DataTypes.ENUM("open", "closed"),
+      defaultValue: "open"
+    },
     // Legarea conferiței de utilizatorul care a creat-o - cheie primară
     organizerId: {
       type: DataTypes.INTEGER,    

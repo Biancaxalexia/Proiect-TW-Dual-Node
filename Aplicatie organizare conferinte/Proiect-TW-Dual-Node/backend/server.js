@@ -14,6 +14,7 @@ const app = express();
 // Configurare middleware Express
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })) // linie nouă
 app.use('/uploads', express.static('uploads'));
 
 // Rute API
