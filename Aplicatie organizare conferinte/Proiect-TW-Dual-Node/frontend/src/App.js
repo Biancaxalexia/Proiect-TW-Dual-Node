@@ -156,16 +156,6 @@ function AppContent() {
             }
           />
 
-          {/* Trimitere lucrare pentru o conferință */}
-          <Route
-            path="/submit/:conferenceId"
-            element={
-              <ProtectedRoute>
-                <SubmitArticle />
-              </ProtectedRoute>
-            }
-          />
-
           {/* Orice rută inexistentă redirecționează către dashboard */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
