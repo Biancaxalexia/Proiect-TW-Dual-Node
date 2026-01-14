@@ -20,7 +20,7 @@ DB_USER=admin (by default root)
 DB_PASSWORD=parola_ta
 DB_NAME=conference_app
 
-PORT=3000
+PORT=3001
 
 JWT_SECRET=schimbă_cu_o_cheie_puternică
 
@@ -54,7 +54,7 @@ Mod producție:
 npm start
 
 Test server:
-curl http://localhost:3000/api/health
+curl http://localhost:3001/api/health
 # {"status":"OK","message":"Serverul este pornit"}
 
 - ENDPOINT-URI PRINCIPALE
