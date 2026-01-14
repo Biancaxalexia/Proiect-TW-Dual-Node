@@ -10,10 +10,10 @@ const { authenticateRole, authenticate } = require('../middleware/authMiddleware
 
 // Rute utilizate doar de recenzori
 // Ruta GET /my-reviews returnează toate recenziile atribuite recenzorului logat
-router.get('/my-reviews', authentificate, authenticateRole(['reviewer']), getMyReviews);
+router.get('/my-reviews', authenticate , authenticateRole(['reviewer']), getMyReviews);
 
 // Ruta PUT /:reviewId/submit permite recenzorului să trimită rezultatul unei recenzii
-router.put('/:reviewId/submit', authentificate ,authenticateRole(['reviewer']), submitReview);
+router.put('/:reviewId/submit', authenticate  ,authenticateRole(['reviewer']), submitReview);
 
 // Rutele utilizate de orice utilizator logat
 // Ruta GET /:id permite unui utilizator logat să vizualizeze detaliile unei recenzii
