@@ -4,10 +4,11 @@ const {
   createConference, 
   getConferences, 
   getConferenceById,
-  getConferenceSubmissions 
+  getConferenceSubmissions,
+  updateConference 
 } = require('../controllers/conferenceController');
 
-const { authenticateRole, authenticate } = require('../middleware/authMiddleware');
+const { authenticate, authenticateRole } = require('../middleware/authMiddleware');
 
 // Rute publice pe care orice utilizator le poate utiliza
 // Ruta GET / returnează lista tuturor conferințelor
@@ -18,9 +19,12 @@ router.get('/:id', getConferenceById);
 
 // Rute utilizate doar de organizatori
 // Ruta POST / permite unui organizator să creeze o nouă conferință
-router.post('/', authenticateRole(['organizer']), createConference);
+router.post('/', authenticate, authenticateRole(['organizer']), createConference);
+
+// Ruta PUT /:id permite organizatorului să editeze conferința
+router.put('/:id', authenticate,authenticateRole(['organizer']), updateConference);
 
 // Ruta GET /:id/submissions permite organizatorului să vadă toate lucrările trimise pentru conferința sa
-router.get('/:id/submissions', authenticateRole(['organizer']), getConferenceSubmissions);
+router.get('/:id/submissions', authenticate, authenticateRole(['organizer']), getConferenceSubmissions);
 
 module.exports = router;

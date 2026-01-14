@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
   return sequelize.define("Review", {
     comment: {
       type: DataTypes.TEXT,       
-      allowNull: true, // linie modificată și unele șterse
+      allowNull: true, 
     },
     score: {
       type: DataTypes.INTEGER,    
-      allowNull: true, // linie modificată       
+      allowNull: true,   
       validate: {
         min: 1,                 
         max: 10                   

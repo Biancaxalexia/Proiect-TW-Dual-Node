@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,       
       allowNull: false            
     },
-    //bucată de cod nou adăugată
     submissionDeadline: {
       type: DataTypes.DATE,
       allowNull: false
