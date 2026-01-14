@@ -14,6 +14,7 @@ import EditConference from "./pages/EditConference";
 import MySubmissions from "./pages/MySubmissions";
 import SubmissionDetails from "./pages/SubmissionDetails";
 import SubmitArticle from "./pages/SubmitArticle";
+import SubmitRevision from "./pages/SubmitRevision"; 
 import MyReviews from "./pages/MyReviews";
 import ReviewDetails from "./pages/ReviewDetails";
 
@@ -152,6 +153,26 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <SubmissionDetails />
+              </ProtectedRoute>
+            }
+          />
+          
+          {/* Revizuire lucrare */ }
+          <Route
+          path="/revision/:id"
+           element={
+           <ProtectedRoute>
+            <SubmitRevision />
+            </ProtectedRoute>
+          }
+          />
+
+          {/* Trimitere lucrare pentru o conferință */}
+          <Route
+            path="/submit/:conferenceId"
+            element={
+              <ProtectedRoute>
+                <SubmitArticle />
               </ProtectedRoute>
             }
           />
