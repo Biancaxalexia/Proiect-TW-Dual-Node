@@ -2,13 +2,13 @@ Aplicație web pentru organizarea de conferințe
 
 OBIECTIV: Realizarea unei aplicații web care să permită organizarea și gestionarea conferințelor. 
 
-DESCRIERE: Aplicația web constă în organizarea și gestionarea conferințelor, conținând diferite etape precum trimitere, evaluare și aprobare a articolelor. Aceasta gestionează trei categorii de utilizatori: organizator, autor și recenzor, fiecare având atribuite diferite responsabilități. Platforma va fi dezvoltată ca o aplicație web de tip Single Page Application (SPA), putând fi accesată de pe diferite dispozitive în browser. 
+DESCRIERE: Aplicația web constă în organizarea și gestionarea conferințelor, conținând diferite etape precum trimitere, aprobare și evaluare a articolelor. Aceasta gestionează trei categorii de utilizatori: organizator, autor și recenzor, fiecare având atribuite diferite responsabilități. Platforma va fi dezvoltată ca o aplicație web de tip Single Page Application (SPA), putând fi accesată de pe diferite dispozitive în browser. 
 
 TEHNOLOGII UTILIZATE:
-- Partea de front - end  va realizată cu ajutorul framework-ului bazat pe componente React.js  
-- Partea de back – end va avea o interfață REST și va fi realizată în Node.js. 
-- Stocarea datelor se va face într-o bază de date relațională, accesată prin intermediul unui ORM. 
-- Aplicația va fi distribuită pe un server cloud precum Azure, AWS. 
+- Partea de front-end  va realizată cu ajutorul framework-ului bazat pe componente React.js  
+- Partea de back-end va fi implementată în Node.js folosind Express.js și o interfață REST API.
+- Stocarea datelor se va face într-o bază de date relațională(MariaDB), accesată prin intermediul unui ORM(Sequelize). 
+- Aplicația poate fi distribuită pe un server cloud precum Azure, AWS. 
 
 FUNCȚIONALITĂȚI MINIME:
 - Aplicația web conține trei tipuri de utilizatori: organizator, autor și recenzor. 
