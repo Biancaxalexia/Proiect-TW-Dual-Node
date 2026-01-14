@@ -40,38 +40,48 @@ exports.submitReview = async (req, res) => {
   try {
     const { reviewId } = req.params;
     const { comment, score, decision } = req.body;
-    
+
     const review = await Review.findByPk(reviewId);
     if (!review) {
       return res.status(404).json({ error: 'Recenzia nu a fost găsită' });
     }
+
     if (review.reviewerId !== req.user.id) {
       return res.status(403).json({ error: 'Poți trimite doar propriile tale recenzii' });
     }
+
     if (review.status === 'completed') {
       return res.status(400).json({ error: 'Această recenzie a fost deja trimisă' });
     }
+
     if (score < 1 || score > 10) {
       return res.status(400).json({ error: 'Nota trebuie să fie între 1 și 10' });
     }
 
-    //Salvare recenzie 
+    if (!['accept', 'needs_revision'].includes(decision)) {
+      return res.status(400).json({ error: 'Decizie invalidă' });
+    }
+
+    // Salvare recenzie
     review.comment = comment;
     review.score = score;
     review.status = 'completed';
     await review.save();
-
-    // Actualizare status lucrare 
-    review.submission.status = decision === "accept" ? "accepted" : "needs_revision";
-
-    await review.Submission.save();
     
+    const submission = await Submission.findByPk(review.SubmissionId);
+    if (submission) {
+      submission.status = decision === "accept" ? "accepted" : "needs_revision";
+      await submission.save();
+    }
+
     res.json({
       message: 'Recenzie trimisă cu succes',
-      review
+      review,
+      submissionStatus: submission.status
     });
+
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
 

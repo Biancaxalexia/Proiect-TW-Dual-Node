@@ -135,7 +135,7 @@ export default function ReviewDetails() {
               onChange={(e) => setDecision(e.target.value)}
             >
               <option value="accept">Accept</option>
-              <option value="revise">Revise (cerere modificări)</option>
+              <option value="needs_revision">Revise (cerere modificări)</option>
             </select>
           </label>
 
